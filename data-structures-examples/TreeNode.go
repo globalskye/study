@@ -12,6 +12,28 @@ type TreeNode struct {
 	right *TreeNode
 }
 
+//	func createTree(values []int) *TreeNode {
+//		if len(values) == 0 {
+//			return nil
+//		}
+//		nodes := make([]*TreeNode, len(values))
+//		for i, val := range values {
+//			if val != -1 {
+//				nodes[i] = &TreeNode{Val: val}
+//			}
+//		}
+//		for i := 0; i*2+1 < len(values); i++ {
+//			if nodes[i] != nil {
+//				if i*2+1 < len(values) {
+//					nodes[i].Left = nodes[i*2+1]
+//				}
+//				if i*2+2 < len(values) {
+//					nodes[i].Right = nodes[i*2+2]
+//				}
+//			}
+//		}
+//		return nodes[0]
+//	}
 func main() {
 
 	t := &TreeNode{val: 8}
