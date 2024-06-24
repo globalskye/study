@@ -13,28 +13,22 @@ func insertToTree(t *TreeNode, val int) {
 	if t == nil {
 		return
 	}
-
 	if t.Val == val {
 
 		return
 	}
 
 	if t.Val > val {
-
 		if t.Left == nil {
-
 			t.Left = &TreeNode{Val: val}
 			return
 		}
-
 		insertToTree(t.Left, val)
 		return
 	}
 
 	if t.Val < val {
-
 		if t.Right == nil {
-
 			t.Right = &TreeNode{Val: val}
 			return
 		}
