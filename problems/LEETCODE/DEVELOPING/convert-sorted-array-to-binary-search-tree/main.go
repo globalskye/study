@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -46,8 +48,16 @@ func sortedArrayToBST(nums []int) *TreeNode {
 		return &TreeNode{}
 	}
 	root := &TreeNode{Val: nums[0]}
-	for i := 0; i < len(nums); i++ {
-		insertToTree(root, nums[i])
+	left := &TreeNode{}
+	right := &TreeNode{}
+	for i := 0; i < len(nums)/2; i++ {
+		fmt.Println(nums[len(nums)/2-1-i])
+		fmt.Println(nums[len(nums)/2+1+i])
+		insertToTree(left, nums[len(nums)/2-1-i])
+		insertToTree(right, nums[len(nums)/2+1+i])
 	}
+
+	root.Left = left
+	root.Right = right
 	return root
 }
