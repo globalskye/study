@@ -1,8 +1,12 @@
 package main
 
+<<<<<<< HEAD
 import (
 	"fmt"
 )
+=======
+import "fmt"
+>>>>>>> fcfae54d55d896b76beae609cab44a48cf1336e1
 
 type TreeNode struct {
 	Val   int
@@ -72,6 +76,7 @@ func sortedArrayToBST(nums []int) *TreeNode {
 	if len(nums) == 0 {
 		return &TreeNode{}
 	}
+<<<<<<< HEAD
 	root := &TreeNode{}
 	j := 0
 	i := len(nums) - 1
@@ -88,5 +93,19 @@ func sortedArrayToBST(nums []int) *TreeNode {
 
 	}
 
+=======
+	root := &TreeNode{Val: nums[0]}
+	left := &TreeNode{}
+	right := &TreeNode{}
+	for i := 0; i < len(nums)/2; i++ {
+		fmt.Println(nums[len(nums)/2-1-i])
+		fmt.Println(nums[len(nums)/2+1+i])
+		insertToTree(left, nums[len(nums)/2-1-i])
+		insertToTree(right, nums[len(nums)/2+1+i])
+	}
+
+	root.Left = left
+	root.Right = right
+>>>>>>> fcfae54d55d896b76beae609cab44a48cf1336e1
 	return root
 }
