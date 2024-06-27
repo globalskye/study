@@ -8,10 +8,10 @@ type ListNode struct {
 }
 
 func main() {
-	list1 := &ListNode{Val: 1, Next: &ListNode{Val: 2, Next: &ListNode{Val: 4}}}
+	list1 := &ListNode{Val: 1, Next: &ListNode{Val: 2, Next: nil}}
 
 	// Создаем второй список list2 = [1, 3, 4]
-	list2 := &ListNode{Val: 1, Next: &ListNode{Val: 3, Next: &ListNode{Val: 4}}}
+	list2 := &ListNode{Val: 1, Next: &ListNode{Val: 3, Next: nil}}
 
 	result := mergeTwoLists(list1, list2)
 	for result.Next != nil {
@@ -42,10 +42,10 @@ func (list *LinkedList) addToEnd(val int) {
 
 }
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
-	var result LinkedList
+	result := &ListNode{}
 
 	if list1 == nil && list2 == nil {
-		return result.head
+		return result
 	}
 	if list1 == nil && list2 != nil {
 		return list2
@@ -53,36 +53,43 @@ func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
 	if list2 == nil && list1 != nil {
 		return list1
 	}
-	for {
-		val1 := list1.Val
-		val2 := list2.Val
-
-		if val1 == val2 {
-
-			result.addToEnd(val2)
-			result.addToEnd(val1)
-
-		}
-		if val1 > val2 {
-			result.addToEnd(val2)
-			result.addToEnd(val1)
-		}
-		if val2 > val1 {
-			result.addToEnd(val1)
-			result.addToEnd(val2)
-		}
-
-		if list1.Next == nil && list2.Next == nil {
-			break
-		}
-		if list1.Next != nil {
+	for list1 != nil && list2 != nil {
+		if list1.Val == list2.Val {
+			fmt.Println(list1.Val)
+			fmt.Println(list2.Val)
 			list1 = list1.Next
-		}
-		if list2.Next != nil {
 			list2 = list2.Next
+		}
+		if list2 != nil {
+			curList := list2
+			for list2.Val >= list1.Val {
+				if list2.Next == nil {
+					break
+				}
+				list2 = list2.Next
+
+			}
+			fmt.Println(list1.Val)
+			fmt.Println(list2.Val)
+
+			list2 = curList
+			list2 = list2.Next
+			continue
+		}
+		if list1 != nil {
+			curList := list1
+			for list1.Val >= list2.Val {
+				list2 = list2.Next
+			}
+			fmt.Println(list2.Val)
+			fmt.Println(list1.Val)
+
+			list1 = curList
+			list1 = list1.Next
+			continue
 		}
 
 	}
 
-	return result.head
+	return result
 }

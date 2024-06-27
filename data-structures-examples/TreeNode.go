@@ -3,31 +3,69 @@ package data_structures_examples
 import (
 	"errors"
 	"fmt"
+	"strings"
 )
 
 // TreeNode data structure represents a typical binary tree
 type TreeNode struct {
-	val   int
-	left  *TreeNode
-	right *TreeNode
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
 }
 
-//	func createTree(values []int) *TreeNode {
-//		if len(values) == 0 {
+func PrintTreeNode(t *TreeNode) {
+	if t != nil {
+		return
+	}
+	PrintTreeNode(t)
+	fmt.Print("[", t.Val, " ", "]")
+	PrintTreeNode(t)
+}
+func PrintTree(node *TreeNode, prefix string, isTail bool) {
+	if node == nil {
+		return
+	}
+
+	var sb strings.Builder
+	sb.WriteString(prefix)
+
+	if isTail {
+		sb.WriteString("└── ")
+		prefix += "    "
+	} else {
+		sb.WriteString("├── ")
+		prefix += "│   "
+	}
+
+	sb.WriteString(fmt.Sprintf("%d\n", node.Val))
+	fmt.Print(sb.String())
+
+	if node.Left != nil || node.Right != nil {
+		if node.Left != nil {
+			PrintTree(node.Left, prefix, node.Right == nil)
+		}
+		if node.Right != nil {
+			PrintTree(node.Right, prefix, true)
+		}
+	}
+}
+
+//	func createTree(Values []int) *TreeNode {
+//		if len(Values) == 0 {
 //			return nil
 //		}
-//		nodes := make([]*TreeNode, len(values))
-//		for i, val := range values {
-//			if val != -1 {
-//				nodes[i] = &TreeNode{Val: val}
+//		nodes := make([]*TreeNode, len(Values))
+//		for i, Val := range Values {
+//			if Val != -1 {
+//				nodes[i] = &TreeNode{Val: Val}
 //			}
 //		}
-//		for i := 0; i*2+1 < len(values); i++ {
+//		for i := 0; i*2+1 < len(Values); i++ {
 //			if nodes[i] != nil {
-//				if i*2+1 < len(values) {
+//				if i*2+1 < len(Values) {
 //					nodes[i].Left = nodes[i*2+1]
 //				}
-//				if i*2+2 < len(values) {
+//				if i*2+2 < len(Values) {
 //					nodes[i].Right = nodes[i*2+2]
 //				}
 //			}
@@ -36,7 +74,7 @@ type TreeNode struct {
 //	}
 func main() {
 
-	t := &TreeNode{val: 8}
+	t := &TreeNode{Val: 8}
 
 	t.Insert(1)
 	t.Insert(2)
@@ -66,127 +104,127 @@ func (t *TreeNode) PrintInorder() {
 		return
 	}
 
-	t.left.PrintInorder()
-	fmt.Print(t.val)
-	t.right.PrintInorder()
+	t.Left.PrintInorder()
+	fmt.Print(t.Val)
+	t.Right.PrintInorder()
 }
 
 // Insert inserts a new node into the binary tree while adhering to the rules of a perfect BST.
-func (t *TreeNode) Insert(value int) error {
+func (t *TreeNode) Insert(Value int) error {
 
 	if t == nil {
 
 		return errors.New("Tree is nil")
 	}
 
-	if t.val == value {
+	if t.Val == Value {
 
-		return errors.New("This node value already exists")
+		return errors.New("This node Value already exists")
 	}
 
-	if t.val > value {
+	if t.Val > Value {
 
-		if t.left == nil {
+		if t.Left == nil {
 
-			t.left = &TreeNode{val: value}
+			t.Left = &TreeNode{Val: Value}
 			return nil
 		}
 
-		return t.left.Insert(value)
+		return t.Left.Insert(Value)
 	}
 
-	if t.val < value {
+	if t.Val < Value {
 
-		if t.right == nil {
+		if t.Right == nil {
 
-			t.right = &TreeNode{val: value}
+			t.Right = &TreeNode{Val: Value}
 			return nil
 		}
 
-		return t.right.Insert(value)
+		return t.Right.Insert(Value)
 	}
 
 	return nil
 }
 
-// Find finds the treenode for the given node val
-func (t *TreeNode) Find(value int) (TreeNode, bool) {
+// Find finds the treenode for the given node Val
+func (t *TreeNode) Find(Value int) (TreeNode, bool) {
 
 	if t == nil {
 		return TreeNode{}, false
 	}
 
 	switch {
-	case value == t.val:
+	case Value == t.Val:
 		return *t, true
-	case value < t.val:
-		return t.left.Find(value)
+	case Value < t.Val:
+		return t.Left.Find(Value)
 	default:
-		return t.right.Find(value)
+		return t.Right.Find(Value)
 	}
 }
 
-// Delete removes the Item with value from the tree
-func (t *TreeNode) Delete(value int) {
-	t.remove(value)
+// Delete removes the Item with Value from the tree
+func (t *TreeNode) Delete(Value int) {
+	t.remove(Value)
 }
 
-func (t *TreeNode) remove(value int) *TreeNode {
+func (t *TreeNode) remove(Value int) *TreeNode {
 
 	if t == nil {
 		return nil
 	}
 
-	if value < t.val {
-		t.left = t.left.remove(value)
+	if Value < t.Val {
+		t.Left = t.Left.remove(Value)
 		return t
 	}
-	if value > t.val {
-		t.right = t.right.remove(value)
+	if Value > t.Val {
+		t.Right = t.Right.remove(Value)
 		return t
 	}
 
-	if t.left == nil && t.right == nil {
+	if t.Left == nil && t.Right == nil {
 		t = nil
 		return nil
 	}
 
-	if t.left == nil {
-		t = t.right
+	if t.Left == nil {
+		t = t.Right
 		return t
 	}
-	if t.right == nil {
-		t = t.left
+	if t.Right == nil {
+		t = t.Left
 		return t
 	}
 
-	smallestValOnRight := t.right
+	smallestValOnRight := t.Right
 	for {
-		//find smallest value on the right side
-		if smallestValOnRight != nil && smallestValOnRight.left != nil {
-			smallestValOnRight = smallestValOnRight.left
+		//find smallest Value on the Right side
+		if smallestValOnRight != nil && smallestValOnRight.Left != nil {
+			smallestValOnRight = smallestValOnRight.Left
 		} else {
 			break
 		}
 	}
 
-	t.val = smallestValOnRight.val
-	t.right = t.right.remove(t.val)
+	t.Val = smallestValOnRight.Val
+	t.Right = t.Right.remove(t.Val)
 	return t
 }
 
 // FindMax finds the max element in the given BST
 func (t *TreeNode) FindMax() int {
-	if t.right == nil {
-		return t.val
+	if t.Right == nil {
+		return t.Val
 	}
-	return t.right.FindMax()
+	return t.Right.FindMax()
 }
 
 // FindMin finds the min element in the given BST
 func (t *TreeNode) FindMin() int {
-	if t.left == nil {
-		return t.val
+	if t.Left == nil {
+		return t.Val
 	}
-	return t.left.FindMin()
+	return t.Left.FindMin()
 }
