@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func main() {
@@ -33,7 +34,7 @@ func reverse(x int) int {
 		if buf < 10 && buf > 0 {
 			res = res*10 + buf
 
-			if res > 2147483647 {
+			if res > math.MaxInt32 {
 				return 0
 			}
 			return res
@@ -47,7 +48,7 @@ func reverse(x int) int {
 		res = res + cur
 		if buf < 0 && buf > -10 {
 			res = res*10 + buf
-			if res < -2147483648 {
+			if res < math.MaxInt32*-1-1 {
 				return 0
 			}
 			return res
