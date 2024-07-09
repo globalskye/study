@@ -1,4 +1,4 @@
-package data_structures_examples
+package main
 
 type Stack struct {
 	elements []byte
