@@ -1,6 +1,5 @@
 package main
 
-
 import (
 	"container/heap"
 	"fmt"
@@ -33,5 +32,5 @@ func main() {
 	for h.Len() > 0 {
 		fmt.Printf("%d ", heap.Pop(h))
 	}
->>>>>>> f79c7b7049bd84938a1bbec433a5526d309c21af
+
 }
