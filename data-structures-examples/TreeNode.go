@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"strings"
 )
 
 // TreeNode data structure represents a typical binary tree
@@ -11,43 +10,6 @@ type TreeNode struct {
 	Val   int
 	Left  *TreeNode
 	Right *TreeNode
-}
-
-func PrintTreeNode(t *TreeNode) {
-	if t != nil {
-		return
-	}
-	PrintTreeNode(t)
-	fmt.Print("[", t.Val, " ", "]")
-	PrintTreeNode(t)
-}
-func PrintTree(node *TreeNode, prefix string, isTail bool) {
-	if node == nil {
-		return
-	}
-
-	var sb strings.Builder
-	sb.WriteString(prefix)
-
-	if isTail {
-		sb.WriteString("└── ")
-		prefix += "    "
-	} else {
-		sb.WriteString("├── ")
-		prefix += "│   "
-	}
-
-	sb.WriteString(fmt.Sprintf("%d\n", node.Val))
-	fmt.Print(sb.String())
-
-	if node.Left != nil || node.Right != nil {
-		if node.Left != nil {
-			PrintTree(node.Left, prefix, node.Right == nil)
-		}
-		if node.Right != nil {
-			PrintTree(node.Right, prefix, true)
-		}
-	}
 }
 
 //	func createTree(Values []int) *TreeNode {
@@ -78,22 +40,10 @@ func main() {
 
 	t.Insert(1)
 	t.Insert(2)
-	t.Insert(3)
-	t.Insert(4)
-	t.Insert(5)
-	t.Insert(6)
-	t.Insert(7)
 
-	t.Find(11)
+	d := t.remove(5)
+	fmt.Println(d)
 
-	t.Delete(5)
-	t.Delete(7)
-
-	t.PrintInorder()
-	fmt.Println("")
-
-	fmt.Println("min is %d", t.FindMin())
-	fmt.Println("max is %d", t.FindMax())
 }
 
 // PrintInorder prints the elements in order
