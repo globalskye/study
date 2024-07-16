@@ -64,18 +64,25 @@ func remove(root *TreeNode, target int) *TreeNode {
 
 	}
 
-	if root.Right != nil {
-		n := &TreeNode{}
-		n = root.Right
-		n.Left = root.Left
+	if root.Right == nil {
 
-		return n
+		return root.Left
 	}
-	if root.Left != nil {
-		n := &TreeNode{}
-		n = root.Left
-		return n
+	if root.Left == nil {
+
+		return root.Right
 	}
-	root = nil
+
+	smallestValOnRight := root.Right
+	for {
+		if smallestValOnRight != nil && smallestValOnRight.Left != nil {
+			smallestValOnRight = smallestValOnRight.Left
+		} else {
+			break
+		}
+	}
+
+	root.Val = smallestValOnRight.Val
+	root.Right = remove(root.Right, root.Val)
 	return root
 }
