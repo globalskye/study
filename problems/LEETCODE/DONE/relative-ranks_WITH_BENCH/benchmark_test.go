@@ -14,7 +14,7 @@ func generateRandomScores(n int) []int {
 }
 
 func BenchmarkFindRelativeRanksUsingHeap(b *testing.B) {
-	scores := generateRandomScores(1_000)
+	scores := generateRandomScores(1_000_000)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		findRelativeRanksUsingHeap(scores)
@@ -22,7 +22,7 @@ func BenchmarkFindRelativeRanksUsingHeap(b *testing.B) {
 }
 
 func BenchmarkFindRelativeRanksUsingSort(b *testing.B) {
-	scores := generateRandomScores(1_000)
+	scores := generateRandomScores(1_000_000)
 	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
