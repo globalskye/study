@@ -16,10 +16,11 @@ func pruneTree(root *TreeNode) *TreeNode {
 		node := queue[0]
 		queue = queue[1:]
 		if node.Val == 0 {
-			if node.Right != nil && node.Right.Val == 0 {
-				node.Right = nil
+			if node.Right != nil && node.Right.Val == 0 && node.Left != nil && node.Left.Val == 0 {
+				node = nil
+				continue
 			}
-			if node.Left != nil && node.Left.Val == 0 {
+			if node.Left != nil && node.Right != nil && node.Left.Val == 0 {
 				node.Left = nil
 			}
 		}

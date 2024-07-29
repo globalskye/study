@@ -101,5 +101,4 @@ func levelOrder(root *TreeNode) [][]int {
 func main() {
 	tree := createTree([]interface{}{3, 9, 20, 15, 7, 1, 3, 1})
 	levelOrder(tree)
-
 }

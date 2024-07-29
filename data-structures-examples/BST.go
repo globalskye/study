@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type BST struct {
 	Val       int
@@ -13,6 +15,7 @@ func (t *BST) Insert(val int) {
 
 		return
 	}
+
 	if val < t.Val {
 		if t.LeftNode == nil {
 			t.LeftNode = &BST{Val: val}
